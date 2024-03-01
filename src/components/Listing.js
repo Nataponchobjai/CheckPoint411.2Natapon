@@ -1,23 +1,30 @@
-import React from 'react'
-import { Container, } from '@mui/material';
-// import cars from '../cars.json' // remove this
+import React from 'react';
+import { Container } from '@mui/material';
 
 const Listing = (props) => {
-    const id = props.match.params.id
+    const id = props.match.params.id;
 
-    {/* Change cars to props.cars and remove the cars.json import above */}
-    const listing = props.listings.find(c => c.id == id)
+    // Assuming `props.listings` is passed correctly and contains the necessary data,
+    // this will find the listing by its ID.
+    const listing = props.listings.find(c => c.id === id);
+
+    // Ensure that `listing` is defined to avoid runtime errors.
+    if (!listing) {
+        // This is a simple way to handle a missing listing.
+        // You might want to render something more informative.
+        return <div>Listing not found</div>;
+    }
 
     return (
         <Container maxWidth="sm" className="car-container">
-                <h2>{listing.Name}</h2>
-                <b>{listing.Address}</b>
-                <br></br>
-                <br></br>
-                <b>{listing.Hours}</b>
-                <p>{listing.Description}</p>
+            <h2>{listing.Name}</h2>
+            <b>{listing.Address}</b>
+            <br></br>
+            <br></br>
+            <b>{listing.Hours}</b>
+            <p>{listing.Description}</p>
         </Container>
-    )
+    );
 }
 
-export default Listing
+export default Listing;
