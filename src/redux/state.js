@@ -3,6 +3,7 @@ const initialState = {
      "username": "Natapon",
      "email": "test-user@example.com"
    },
+   makes: [],
    listings: [
       
          

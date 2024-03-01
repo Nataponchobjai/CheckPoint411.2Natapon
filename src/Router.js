@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router';
 import cookie from 'cookie';
 import Listings from './containers/Listings'
 import Listing from './containers/Listing'
-import About from './components/About';
+
 
 import Login from './components/Login';
 
@@ -14,17 +14,17 @@ const checkAuth = () => {
 };
 
 // ProtectedRoute component
-const ProtectedRoute = ({ component: Component, ...rest }) => {
-    return checkAuth() ? <Component {...rest} /> : <Navigate to="/login" replace />;
+const ProtectedRoute = ({ children }) => {
+    return checkAuth() ? children : <Navigate to="/login" replace />;
 };
 
 const Router = () => {
     return (
         <Routes>
-            <Route path="/" element={<ProtectedRoute component={Listings} />} />
+            <Route path="/" element={<ProtectedRoute><Listings /></ProtectedRoute>} />
             <Route path="/login" element={<Login />} />
-            <Route path="/about" element={<ProtectedRoute component={About} />} />
-            <Route path="/:id" element={<ProtectedRoute component={Listing} />} />
+            
+            <Route path="/:id" element={<ProtectedRoute><Listing /></ProtectedRoute>} />
         </Routes>
     );
 };

@@ -1,60 +1,37 @@
-import React, { Component, Fragment } from 'react'
-import {
-    Button,
-    TextField,
-    Dialog,
-    DialogContent,
-    DialogTitle
-} from '@mui/material'
-import { Link } from 'react-router-dom'
+import React, { Component, Fragment } from 'react';
+import { Button, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'; // เพิ่ม import PropTypes
 
-
-class AddCar extends Component {
+class AddListing extends Component {
     state = {
         open: false,
         name: '',
         address: '',
         hours: '',
         description: '',
-    }
+    };
 
-    toggleDialog = () => this.setState({ open: !this.state.open })
+    toggleDialog = () => this.setState({ open: !this.state.open });
 
     handleTextChange = (e) => {
-        const newState = { ...this.state }
-        newState[e.target.id] = e.target.value
-        this.setState(newState)
-    }
+        this.setState({ [e.target.id]: e.target.value });
+    };
 
     handleSubmit = (e) => {
-        e.preventDefault()
-        const payload = { ...this.state }
-        payload.id = this.props.carTotal + 1
-        delete payload.open
-        console.log("THE CAR", payload)
-        // add this.props.addCar function here
-        this.props.addACar(payload)
-        // also add this.setState to close the dialog
-        this.setState({open: false})
-    }
-
-    componentDidUpdate = (prevProps, prevState) => {
-        if (prevState.open !== this.state.open) {
-            this.setState({
-                name: '',
-                mpg: '',
-                cylinders: '',
-                horsepower: ''
-            })
-        }
-    }
+        e.preventDefault();
+        const { open, ...payload } = this.state;
+        payload.id = this.props.listingTotal + 1;
+        console.log("THE LISTING", payload);
+        this.props.addListing(payload);
+        this.setState({ open: false, name: '', address: '', hours: '', description: '' });
+    };
 
     render() {
-        console.log(this.props)
         return (
             <Fragment>
                 <div style={{ textAlign: 'center' }}>
-                    <Link
+                <Link
                         variant="contained"
                         className="add-car"
                         onClick={this.toggleDialog}
@@ -62,46 +39,28 @@ class AddCar extends Component {
                         Add
                     </Link>
                 </div>
-                <div>
-                    <Dialog open={this.state.open} onClose={this.toggleDialog} >
-                        <DialogTitle>Add New Listing</DialogTitle>
-                        <DialogContent>
-                            <form 
-                                onSubmit={this.handleSubmit}
-                                style={{ display: 'flex', flexDirection: 'column', width: '350px' }}>
-                                <TextField 
-                                    id="name" 
-                                    placeholder="Name" 
-                                    value={this.state.name} 
-                                    onChange={this.handleTextChange} 
-                                    required />
-                                <TextField 
-                                    id="address" 
-                                    placeholder="Address" 
-                                    value={this.state.mpg} 
-                                    onChange={this.handleTextChange} 
-                                    required />
-                                <TextField 
-                                    id="hours" 
-                                    placeholder="Hours (ex. 8AM - 9PM" 
-                                    value={this.state.cylinders} 
-                                    onChange={this.handleTextChange} 
-                                    required />
-                                <TextField 
-                                    id="description" 
-                                    placeholder="Description" 
-                                    value={this.state.horsepower} 
-                                    onChange={this.handleTextChange} 
-                                    required />
-                                <br />
-                                <Button variant="contained" color="primary" type="submit">Save</Button>
-                            </form>
-                        </DialogContent>
-                    </Dialog>
-                </div>
+                <Dialog open={this.state.open} onClose={this.toggleDialog}>
+                    <DialogTitle>Add New Listing</DialogTitle>
+                    <DialogContent>
+                        <form onSubmit={this.handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '350px' }}>
+                            <TextField id="name" placeholder="Name" value={this.state.name} onChange={this.handleTextChange} required />
+                            <TextField id="address" placeholder="Address" value={this.state.address} onChange={this.handleTextChange} required />
+                            <TextField id="hours" placeholder="Hours (ex. 8AM - 9PM)" value={this.state.hours} onChange={this.handleTextChange} required />
+                            <TextField id="description" placeholder="Description" value={this.state.description} onChange={this.handleTextChange} required />
+                            <br />
+                            <Button type="submit" variant="contained" color="primary">Save</Button>
+                        </form>
+                    </DialogContent>
+                </Dialog>
             </Fragment>
-        )
+        );
     }
 }
 
-export default AddCar
+// เพิ่ม PropTypes ที่นี่
+AddListing.propTypes = {
+  addListing: PropTypes.func.isRequired, // ต้องรับฟังก์ชัน addListing และเป็นสิ่งที่ต้องการ
+  listingTotal: PropTypes.number.isRequired, // ต้องรับตัวเลข listingTotal และเป็นสิ่งที่ต้องการ
+};
+
+export default AddListing;

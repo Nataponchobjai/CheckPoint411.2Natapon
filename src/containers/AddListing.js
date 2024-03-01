@@ -1,11 +1,15 @@
-import { connect } from 'react-redux'
-import AddCar from '../components/AddListing'
-import {addCar} from '../redux/actions'
+import { connect } from 'react-redux';
+import AddListing from '../components/AddListing'; // Ensure this matches your file/component name
+import { addListing, removeListing } from '../redux/actions';
 
-const mapDispatchtoProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        addACar: (newCar) => dispatch(addCar(newCar)),
-    }
-}
+        // Adjusting to use the addListing action
+        addListing: (newListing) => dispatch(addListing(newListing)),
+        // Optional: Including removeListing if your component needs it
+        removeListing: (id) => dispatch(removeListing(id)),
+    };
+};
 
-export default connect(null,mapDispatchtoProps)(AddCar)
+// Adjust the component name accordingly if it's not AddListing
+export default connect(null, mapDispatchToProps)(AddListing);

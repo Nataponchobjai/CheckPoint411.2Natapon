@@ -12,20 +12,16 @@ const Login = () => {
 
   const handleTextChange = (e) => {
     const { name, value } = e.target;
-    setState((prevState) => {
-      return {
+    setState((prevState) => ({
         ...prevState,
         [name]: value,
-      };
-    });
+    }));
   };
 
   const login = (e) => {
     e.preventDefault();
-    // set cookie here
-    // set loggedIn = true and max-age = 60*1000 (one minute)
+    // Set cookie here: loggedIn = true and max-age = 60 seconds (one minute)
     document.cookie = "loggedIn=true; max-age=60; path=/";
-
     navigate("/");
   };
 

@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import Listings from '../components/Listings';
-import { removeCar } from '../redux/actions.js'
-
+import { removeListing } from '../redux/actions.js' // Ensure this is the updated action creator
 
 const mapStateToProps = (state) => {
   return {
@@ -10,10 +9,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchtoProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-      removeCar: (index) => dispatch(removeCar(index)),
+      // Update to use removeListing, and it should likely take an id rather than an index
+      removeListing: (id) => dispatch(removeListing(id)),
   }
 }
 
-export default connect(mapStateToProps,mapDispatchtoProps)(Listings)
+export default connect(mapStateToProps, mapDispatchToProps)(Listings);
