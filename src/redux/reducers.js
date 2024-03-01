@@ -16,20 +16,19 @@ const listings = (state = [], action) => {
     }
 }
 
-  const makes = (state = [], action) => {
+const makes = (state = [], action) => {
     switch(action.type) {
-      case "FETCH_MAKES":
-        return action.value; // Correctly sets the makes array
-      case "DELETE_MAKE":
-        // Assuming action.value is the id of the make to delete
-        return state.filter(make => make.id !== action.value);
-      default:
-        return state;
+        case "FETCH_MAKES":
+        return action.value;
+        case "DELETE_MAKE":
+            const makes = [ ...state ]
+            makes.splice(action.value, 1)
+            return makes
+        
+        default:
+            return state
     }
   }
-
-
-
 
 
 

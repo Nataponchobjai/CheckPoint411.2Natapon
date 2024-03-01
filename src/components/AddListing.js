@@ -32,17 +32,7 @@ class AddListing extends Component {
         this.setState({ open: false })
     }
 
-    // handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     const payload = { ...this.state }
-    //     payload.id = this.props.carTotal + 1
-    //     delete payload.open
-    //     console.log("THE LISTING", payload)
-    //     // add this.props.addCar function here
-    //     // also add this.setState to close the dialog
-    //     this.props.addListing(payload)
-    //     this.setState({ open: false })
-    // }
+  
 
     componentDidUpdate = (prevProps, prevState) => {
         if (prevState.open !== this.state.open) {
