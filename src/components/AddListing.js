@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Button, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types'; // เพิ่ม import PropTypes
+
 
 class AddListing extends Component {
     state = {
@@ -15,17 +15,47 @@ class AddListing extends Component {
     toggleDialog = () => this.setState({ open: !this.state.open });
 
     handleTextChange = (e) => {
-        this.setState({ [e.target.id]: e.target.value });
-    };
+        const newState = { ...this.state }
+        newState[e.target.id] = e.target.value
+        this.setState(newState)
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const { open, ...payload } = this.state;
+        const payload = { ...this.state }
         payload.id = this.props.listingTotal + 1;
+        delete payload.open
         console.log("THE LISTING", payload);
-        this.props.addListing(payload);
-        this.setState({ open: false, name: '', address: '', hours: '', description: '' });
-    };
+        this.props.addListing(payload); // Assuming this method is correctly passed down as a prop and updates the parent state or global state
+    
+        // Reset the form fields and close the dialog
+        this.setState({ open: false })
+    }
+
+    // handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     const payload = { ...this.state }
+    //     payload.id = this.props.carTotal + 1
+    //     delete payload.open
+    //     console.log("THE LISTING", payload)
+    //     // add this.props.addCar function here
+    //     // also add this.setState to close the dialog
+    //     this.props.addListing(payload)
+    //     this.setState({ open: false })
+    // }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (prevState.open !== this.state.open) {
+            this.setState({
+                name: '',
+                address: '',
+                hours: '',
+                description: ''
+            })
+        }
+    }
+
+
 
     render() {
         return (
@@ -33,20 +63,35 @@ class AddListing extends Component {
                 <div style={{ textAlign: 'center' }}>
                 <Link
                         variant="contained"
-                        className="add-car"
+                        className="add-Listing"
                         onClick={this.toggleDialog}
                     >
                         Add
-                    </Link>
+                        </Link>
                 </div>
                 <Dialog open={this.state.open} onClose={this.toggleDialog}>
                     <DialogTitle>Add New Listing</DialogTitle>
                     <DialogContent>
                         <form onSubmit={this.handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '350px' }}>
-                            <TextField id="name" placeholder="Name" value={this.state.name} onChange={this.handleTextChange} required />
-                            <TextField id="address" placeholder="Address" value={this.state.address} onChange={this.handleTextChange} required />
-                            <TextField id="hours" placeholder="Hours (ex. 8AM - 9PM)" value={this.state.hours} onChange={this.handleTextChange} required />
-                            <TextField id="description" placeholder="Description" value={this.state.description} onChange={this.handleTextChange} required />
+                            <TextField id="name" 
+                            placeholder="Name" 
+                            value={this.state.name} 
+                            onChange={this.handleTextChange} 
+                            required />
+                            <TextField id="address" 
+                            placeholder="Address" 
+                            value={this.state.address} 
+                            onChange={this.handleTextChange} 
+                            required />
+                            <TextField id="hours" 
+                            placeholder="Hours (ex. 8AM - 9PM)" 
+                            value={this.state.hours} 
+                            onChange={this.handleTextChange} 
+                            required />
+                            <TextField id="description" placeholder="Description" 
+                            value={this.state.description} 
+                            onChange={this.handleTextChange} 
+                            required />
                             <br />
                             <Button type="submit" variant="contained" color="primary">Save</Button>
                         </form>
@@ -57,10 +102,5 @@ class AddListing extends Component {
     }
 }
 
-// เพิ่ม PropTypes ที่นี่
-AddListing.propTypes = {
-  addListing: PropTypes.func.isRequired, // ต้องรับฟังก์ชัน addListing และเป็นสิ่งที่ต้องการ
-  listingTotal: PropTypes.number.isRequired, // ต้องรับตัวเลข listingTotal และเป็นสิ่งที่ต้องการ
-};
 
 export default AddListing;

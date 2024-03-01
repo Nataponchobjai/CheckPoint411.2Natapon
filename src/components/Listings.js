@@ -7,8 +7,8 @@ import {
     TableHead,
     TableRow
 } from '@mui/material'
-import { Link } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { Link } from 'react-router-dom'
 
 const Listings = (props) => {
     return (
@@ -27,15 +27,17 @@ const Listings = (props) => {
                 <TableBody>
                 {props.listings.map((listing, idx) => (
                     <TableRow key={listing.id}>
-                        <Link to={`/${listing.id}`}><TableCell height="50px">{listing["Name"]}</TableCell></Link> 
+                        <TableCell height="50px">
+                     <Link to={`/${listing.id}`}>{listing["Name"]}</Link>
+                        </TableCell>
                         <TableCell>{listing["Description"]}</TableCell>
                         <TableCell>{listing["Hours"]}</TableCell>
                         <TableCell>{listing["Address"]}</TableCell>
                         <TableCell>
-                        <DeleteIcon
-                        onClick={() => props.removeListing(listing.id)}
-                        style={{ color: 'red', cursor: 'pointer' }}
-                        />
+                            <DeleteIcon
+                                onClick={() => props.removeListing(idx)}
+                                style={{ color: 'red', cursor: 'pointer' }}
+                            />
                         </TableCell>
                     </TableRow>
                 ))}

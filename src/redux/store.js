@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
 import reducers from './reducers'
-import state from './state'
+import initialState from './state'
 
-export default createStore(reducers, state)
+export default createStore(reducers, initialState)

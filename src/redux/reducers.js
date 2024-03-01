@@ -4,40 +4,34 @@ const user = (state = null) => state;
 
 // Updated listings reducer to handle actions
 const listings = (state = [], action) => {
-  switch(action.type) {
-      case 'ADD_LISTING':
-          // Assuming action.value is a listing object
-          return [ ...state, action.value ];
-      case 'REMOVE_LISTING':
-          // Assuming action.value is the id of the listing to remove
-          const cars = [ ...state ]
-            cars.splice(action.value, 1)
-            return cars
-        default:
-            return state
-    }
-}
-
-const makes = (state = [], action) => {
     switch(action.type) {
-        case "FETCH_MAKES":
-        return action.value;
-        case "DELETE_MAKE":
-            const makes = [ ...state ]
-            makes.splice(action.value, 1)
-            return makes
-        
+      case 'ADD_LISTING':
+        return [...state, action.value]; // Correctly adds a listing in an immutable way
+        case 'REMOVE_LISTING':
+            const listings = [ ...state ]
+            listings.splice(action.value, 1)
+            return listings
         default:
             return state
-            
     }
 }
 
+  const makes = (state = [], action) => {
+    switch(action.type) {
+      case "FETCH_MAKES":
+        return action.value; // Correctly sets the makes array
+      case "DELETE_MAKE":
+        // Assuming action.value is the id of the make to delete
+        return state.filter(make => make.id !== action.value);
+      default:
+        return state;
+    }
+  }
 
 
 
 
 
 
+  export default combineReducers({ user, listings, makes });
 
-export default combineReducers({ user, listings, makes });

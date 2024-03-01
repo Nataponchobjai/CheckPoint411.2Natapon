@@ -12,9 +12,11 @@ export const removeListing = (id) => {
   }
 }
 
-export const deleteMake = (index) => {
+
+
+export const deleteMake = (id) => {
   return {
       type: 'DELETE_MAKE',
-      value: index
+      value: id
   };
 };

@@ -1,18 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeListing } from '../redux/actions'; // Adjust the path as necessary
-import { Container } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { removeListing } from '../redux/actions';
+import { Container, Chip } from '@mui/material'; // Make sure to import Chip
+import { useParams } from 'react-router-dom'; // Import useParams
 
-const Listing = ({ listings, removeListing }) => {
-    const { id } = useParams(); // Correctly using useParams for React Router v6
+const Listing = (props) => {
+    const { id } = useParams(); // Use useParams to get the id from the URL params
 
-    // Find the listing by id. Ensure id types match (string to string or number to number).
-    const listing = listings.find(c => c.id.toString() === id);
+    // Find the listing by id.
+    const listing = props.listings.find(listing => listing.id === id);
 
-    if (!listing) {
-        return <div>Listing not found</div>; // Improved error handling can be implemented here.
-    }
+    
 
     return (
         <Container maxWidth="sm" className="car-container">
@@ -21,11 +19,14 @@ const Listing = ({ listings, removeListing }) => {
             <br /><br />
             <b>{listing.Hours}</b>
             <p>{listing.Description}</p>
+    
+            {Object.keys(listing).map((key, idx) => (
+                <Chip key={idx} label={`${key}: ${listing[key]}`} />
+            ))}
         </Container>
     );
 };
 
-// Assuming your Redux state structure has `listings` at the top level
 const mapStateToProps = (state) => ({
     listings: state.listings,
 });
@@ -34,5 +35,4 @@ const mapDispatchToProps = (dispatch) => ({
     removeListing: (id) => dispatch(removeListing(id)),
 });
 
-// Correctly connect the `Listing` component, not `Listings`
 export default connect(mapStateToProps, mapDispatchToProps)(Listing);

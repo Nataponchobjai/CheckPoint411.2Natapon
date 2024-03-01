@@ -9,6 +9,9 @@ import AddListing from '../containers/AddListing';
 const Navigation = () => {
   const navigate = useNavigate();
 
+
+  
+
   return (
     <AppBar position="relative" sx={{ backgroundColor: '#3BB371' }}>
       <Toolbar>
@@ -29,11 +32,11 @@ const Navigation = () => {
           </li>
           {/* Logout functionality */}
           <li className="nav-list-item" onClick={() => {
-            document.cookie = cookie.serialize("loggedIn", null, { maxAge: 0 });
-            navigate("/login");
-          }}>
-            Logout
-          </li>
+     document.cookie = cookie.serialize("loggedIn", null, { maxAge: 0 });
+      navigate("/login");
+}}>
+    Logout
+</li>
         </ul>
       </Toolbar>
     </AppBar>

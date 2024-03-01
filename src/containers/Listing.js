@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
-import AddListing from '../components/AddListing';
-import { addListing } from '../redux/actions'; // Ensure this is the correct import
+import Listing from '../components/Listing';
 
-const mapDispatchToProps = (dispatch) => {
+
+const mapStateToProps = (state) => {
     return {
-        // Update to use addListing, and adjust the parameter name to reflect its purpose
-        addListing: (newListing) => dispatch(addListing(newListing)),
+        listings: state.listings
     }
 }
 
-export default connect(null, mapDispatchToProps)(AddListing);
+export default connect(mapStateToProps)(Listing)

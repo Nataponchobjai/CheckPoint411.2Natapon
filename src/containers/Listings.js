@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      // Update to use removeListing, and it should likely take an id rather than an index
+      // Updated to use removeListing with an id rather than an index
       removeListing: (id) => dispatch(removeListing(id)),
   }
 }
