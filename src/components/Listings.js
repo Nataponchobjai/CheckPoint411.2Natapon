@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
     Container,
     Table,
@@ -6,9 +6,9 @@ import {
     TableCell,
     TableHead,
     TableRow
-} from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete'
-// import { Link } from 'react-router-dom'
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from 'react-router-dom';
 
 
 const Listings = (props) => {
@@ -26,26 +26,26 @@ const Listings = (props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {props.listings.map((listing, idx) => (
-                    <TableRow key={listing.id}>
-                        
-                        
-                        <TableCell>{listing.name}</TableCell>
-                        <TableCell>{listing.Description}</TableCell>
-                        <TableCell>{listing.hours}</TableCell>
-                        <TableCell>{listing.address}</TableCell>
-                        <TableCell>
-                            <DeleteIcon
-                                onClick={() => props.removeListing(idx)}
-                                style={{ color: 'red', cursor: 'pointer' }}
-                            />
-                        </TableCell>
-                    </TableRow>
-                ))}
+                    {props.listings.map((listing, idx) => (
+                        <TableRow key={listing.id}>
+                            <TableCell component="th" scope="row">
+                                <Link to={`/listing/${listing.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>{listing.name}</Link>
+                            </TableCell>
+                            <TableCell>{listing.description}</TableCell>
+                            <TableCell>{listing.hours}</TableCell>
+                            <TableCell>{listing.address}</TableCell>
+                            <TableCell>
+                                <DeleteIcon
+                                    onClick={() => props.removeListing(idx)}
+                                    style={{ color: 'red', cursor: 'pointer' }}
+                                />
+                            </TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
         </Container>
-    )
-}
+    );
+};
 
-export default Listings
+export default Listings;

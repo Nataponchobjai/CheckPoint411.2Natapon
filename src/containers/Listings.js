@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchMakes: () => dispatch(fetchMakes()),
       // Updated to use removeListing with an id rather than an index
-      removeListing: (id) => dispatch(removeListing(id)),
+      removeListing: (index) => dispatch(removeListing(index)),
   }
 }
 

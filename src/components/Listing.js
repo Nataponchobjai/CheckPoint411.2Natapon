@@ -1,28 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeListing } from '../redux/actions';
-import { Container, Chip } from '@mui/material'; // Make sure to import Chip
-import { useParams } from 'react-router-dom'; // Import useParams
+import { Container } from '@mui/material'; // Import Container and Chip from '@mui/material'
+import { useParams } from 'react-router-dom';
 
 const Listing = (props) => {
-    const { id } = useParams(); // Use useParams to get the id from the URL params
+    const { id } = useParams(); // Get the id from the URL params
 
     // Find the listing by id.
-    const listing = props.listings.find(listing => listing.id === id);
+    const listing = props.listings.find(listing => listing.id === parseInt(id)); // Parse id to integer for comparison
 
-    
+    if (!listing) {
+        return <div>Listing not found</div>; // Handle case when listing is not found
+    }
 
     return (
         <Container maxWidth="sm" className="car-container">
-            <h2>{listing.Name}</h2>
-            <b>{listing.Address}</b>
+            <h1>{listing.name}</h1> {/* Change to listing.name */}
+            <b>{listing.address}</b> {/* Change to listing.address */}
             <br /><br />
-            <b>{listing.Hours}</b>
-            <p>{listing.Description}</p>
-    
+            <b>{listing.hours}</b> {/* Change to listing.hours */}
+            <p>{listing.description}</p> {/* Change to listing.description */}
+{/*     
+            Display other properties using Chip
             {Object.keys(listing).map((key, idx) => (
                 <Chip key={idx} label={`${key}: ${listing[key]}`} />
-            ))}
+            ))} */}
         </Container>
     );
 };
@@ -31,8 +33,4 @@ const mapStateToProps = (state) => ({
     listings: state.listings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    removeListing: (id) => dispatch(removeListing(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Listing);
+export default connect(mapStateToProps)(Listing);
