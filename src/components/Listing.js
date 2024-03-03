@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Container } from '@mui/material'; // Import Container and Chip from '@mui/material'
+import { Container, Chip } from '@mui/material'; // Import Container and Chip from '@mui/material'
 import { useParams } from 'react-router-dom';
 
 const Listing = (props) => {
@@ -20,8 +20,8 @@ const Listing = (props) => {
             <br /><br />
             <b>{listing.hours}</b> {/* Change to listing.hours */}
             <p>{listing.description}</p> {/* Change to listing.description */}
-{/*     
-            Display other properties using Chip
+    
+            {/* Display other properties using Chip
             {Object.keys(listing).map((key, idx) => (
                 <Chip key={idx} label={`${key}: ${listing[key]}`} />
             ))} */}
