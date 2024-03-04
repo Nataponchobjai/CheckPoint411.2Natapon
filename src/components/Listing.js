@@ -1,30 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Container, Chip } from '@mui/material'; // Import Container and Chip from '@mui/material'
+import { Container } from '@mui/material'; 
 import { useParams } from 'react-router-dom';
+import Map from './Maps'
+import { Marker } from 'react-google-maps';
 
 const Listing = (props) => {
-    const { id } = useParams(); // Get the id from the URL params
+    const { id } = useParams(); 
 
-    // Find the listing by id.
-    const listing = props.listings.find(listing => listing.id === parseInt(id)); // Parse id to integer for comparison
+    
+    const listing = props.listings.find(listing => listing.id === parseInt(id)); 
 
     if (!listing) {
-        return <div>Listing not found</div>; // Handle case when listing is not found
+        return <div>Listing not found</div>; 
     }
 
     return (
         <Container maxWidth="sm" className="car-container">
-            <h1>{listing.name}</h1> {/* Change to listing.name */}
-            <b>{listing.address}</b> {/* Change to listing.address */}
+            <h1>{listing.name}</h1> 
+            <b>{listing.address}</b> 
             <br /><br />
-            <b>{listing.hours}</b> {/* Change to listing.hours */}
-            <p>{listing.description}</p> {/* Change to listing.description */}
+            <b>{listing.hours}</b> 
+            <p>{listing.description}</p> 
     
-            {/* Display other properties using Chip
-            {Object.keys(listing).map((key, idx) => (
-                <Chip key={idx} label={`${key}: ${listing[key]}`} />
-            ))} */}
+            
+             <Map zoom={12} center={{lat: 53.54992, lng: 10.00678}}>
+      <Marker position={{lat: 53.54992, lng: 10.00678}} />
+    </Map>
         </Container>
     );
 };

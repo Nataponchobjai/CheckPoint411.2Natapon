@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Button, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
+import Map from './Maps'
 
 
 class AddListing extends Component {
@@ -26,13 +27,9 @@ class AddListing extends Component {
         payload.id = this.props.listingTotal + 1;
         delete payload.open
         console.log("THE LISTING", payload);
-        this.props.addListing(payload); // Assuming this method is correctly passed down as a prop and updates the parent state or global state
-    
-        // Reset the form fields and close the dialog
+        this.props.addListing(payload); 
         this.setState({ open: false })
     }
-
-  
 
     componentDidUpdate = (prevProps, prevState) => {
         if (prevState.open !== this.state.open) {
@@ -45,52 +42,59 @@ class AddListing extends Component {
         }
     }
 
-
-
     render() {
         return (
             <Fragment>
                 <div style={{ textAlign: 'center' }}>
-                <Link
+                    <Link
                         variant="contained"
                         className="add-Listing"
                         onClick={this.toggleDialog}
                     >
                         Add
-                        </Link>
+                    </Link>
                 </div>
-                <Dialog open={this.state.open} onClose={this.toggleDialog}>
+                
+                <Dialog maxWidth='xlg' open={this.state.open} onClose={this.toggleDialog}>
                     <DialogTitle>Add New Listing</DialogTitle>
                     <DialogContent>
-                        <form onSubmit={this.handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '350px' }}>
+                        <form onSubmit={this.handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '450px' }}>
                             <TextField id="name" 
-                            placeholder="Name" 
-                            value={this.state.name} 
-                            onChange={this.handleTextChange} 
-                            required />
+                                placeholder="Name" 
+                                value={this.state.name} 
+                                onChange={this.handleTextChange} 
+                                required />
                             <TextField id="address" 
-                            placeholder="Address" 
-                            value={this.state.address} 
-                            onChange={this.handleTextChange} 
-                            required />
+                                placeholder="Address" 
+                                value={this.state.address} 
+                                onChange={this.handleTextChange} 
+                                required />
                             <TextField id="hours" 
-                            placeholder="Hours (ex. 8AM - 9PM)" 
-                            value={this.state.hours} 
-                            onChange={this.handleTextChange} 
-                            required />
-                            <TextField id="description" placeholder="Description" 
-                            value={this.state.description} 
-                            onChange={this.handleTextChange} 
-                            required />
-                            <br />
+                                placeholder="Hours (ex. 8AM - 9PM)" 
+                                value={this.state.hours} 
+                                onChange={this.handleTextChange} 
+                                required />
+                            <TextField id="description" 
+                                placeholder="Description" 
+                                value={this.state.description} 
+                                onChange={this.handleTextChange} 
+                                required />
+                            
                             <Button type="submit" variant="contained" color="primary">Save</Button>
                         </form>
+                        <br />
+                        <br />
+                        
+                        <div style={{ width: '50%', height: '400px' }}> 
+            <Map />
+        </div>
+    
+
                     </DialogContent>
                 </Dialog>
             </Fragment>
         );
     }
 }
-
 
 export default AddListing;

@@ -49,7 +49,7 @@ const Login = () => {
             type="submit"
             className="login-button"
             variant="contained"
-            style={{ backgroundColor: 'gray', color: 'white' }} // Set button color to gray
+            style={{ backgroundColor: 'gray', color: 'white' }} 
           >
             Login
           </Button>
