@@ -27,7 +27,9 @@ const Listings = (props) => {
                         <TableCell>Description</TableCell>
                         <TableCell>Hours</TableCell>
                         <TableCell>Address</TableCell>
+                        {checkAuth() && (
                         <TableCell>Delete</TableCell>
+                        )}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -51,6 +53,13 @@ const Listings = (props) => {
                     ))}
                 </TableBody>
             </Table>
+            <br />
+            {checkAuth() ? (
+  <h1>Welcome! You can now add or delete listings. 😊😊😊</h1>
+) : (
+    <h1>Hey there! Please log in first to add or remove any listings. 😊</h1>
+)}
+
         </Container>
     );
 };

@@ -1,7 +1,7 @@
 const state = {
    user: {
-     "username": "Natapon",
-     "email": "test-user@example.com"
+     "username": "there",
+     
    },
    makes: [],
    listings: [

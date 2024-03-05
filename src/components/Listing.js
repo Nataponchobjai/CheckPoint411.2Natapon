@@ -11,9 +11,7 @@ const Listing = (props) => {
     
     const listing = props.listings.find(listing => listing.id === parseInt(id)); 
 
-    if (!listing) {
-        return <div>Listing not found</div>; 
-    }
+   
 
     return (
         <Container maxWidth="sm" className="car-container">
