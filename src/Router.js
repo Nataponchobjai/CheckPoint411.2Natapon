@@ -3,28 +3,32 @@ import { Routes, Route, Navigate } from 'react-router';
 import cookie from 'cookie';
 import Listings from './containers/Listings'
 import Listing from './containers/Listing'
+import { useSelector } from 'react-redux'
 
 
 import Login from './components/Login';
 
-// checkAuth function
-const checkAuth = () => {
+function checkAuth() {
     const cookies = cookie.parse(document.cookie);
-    return cookies.loggedIn && cookies.loggedIn === 'true';
-};
+    return cookies["loggedIn"] ? true : false;
+  }
 
-// ProtectedRoute component
-const ProtectedRoute = ({ children }) => {
-    return checkAuth() ? children : <Navigate to="/login" replace />;
-};
-
-const Router = () => {
+//   const ProtectedRoute = (props) => {
+//     console.log(props)
+//     const {component: Component, ...rest} = props;
+  
+//     return (
+//       checkAuth() === true ? <Component {...rest}/> : <Navigate to="/login"/>
+//     )
+//    }
+   const Router = () => {
+    const listings = useSelector(state => state.listings);
     return (
         <Routes>
-            <Route path="/" element={<ProtectedRoute><Listings /></ProtectedRoute>} />
+           
             <Route path="/login" element={<Login />} />
-            
-            <Route path="Listing/:id" element={<ProtectedRoute><Listing /></ProtectedRoute>} />
+             <Route path="/" element={<Listings listings={listings} />} />
+            <Route path="Listing/:id" element={<Listing listings={listings} />} />
         </Routes>
     );
 };

@@ -9,7 +9,12 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
+import cookie from 'cookie';
 
+const checkAuth = () => {
+    const cookies = cookie.parse(document.cookie);
+    return cookies["loggedIn"] === "true";
+};
 
 const Listings = (props) => {
     return (
@@ -34,12 +39,14 @@ const Listings = (props) => {
                             <TableCell>{listing.description}</TableCell>
                             <TableCell>{listing.hours}</TableCell>
                             <TableCell>{listing.address}</TableCell>
-                            <TableCell>
-                                <DeleteIcon
-                                    onClick={() => props.removeListing(idx)}
-                                    style={{ color: 'red', cursor: 'pointer' }}
-                                />
-                            </TableCell>
+                            {checkAuth() && (
+                                <TableCell>
+                                    <DeleteIcon
+                                        onClick={() => props.removeListing(idx)}
+                                        style={{ color: 'red', cursor: 'pointer' }}
+                                    />
+                                </TableCell>
+                            )}
                         </TableRow>
                     ))}
                 </TableBody>

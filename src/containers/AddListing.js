@@ -5,7 +5,7 @@ import { addListing } from '../redux/actions';
 const mapDispatchToProps = (dispatch) => {
     return {
         
-        addListing: (Listing) => dispatch(addListing(Listing)),
+        addListing: (newListing) => dispatch(addListing(newListing)),
         
         
     };

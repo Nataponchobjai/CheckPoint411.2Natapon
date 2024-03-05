@@ -1,6 +1,19 @@
 import { combineReducers } from 'redux';
 
-const user = (state = null) => state;
+const user = (state = {}, action) => {
+    switch(action.type) {
+      case 'LOGIN':
+          return  {
+            username: action.value
+          }
+      case 'LOGOUT':
+        return  {
+          username: ""
+        }
+      default: 
+        return state
+  }
+  }
 
 // Updated listings reducer to handle actions
 const listings = (state = [], action) => {

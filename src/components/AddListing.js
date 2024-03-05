@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Button, TextField, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
-import Map from './Maps'
-
+import Map from './Maps';
 
 class AddListing extends Component {
     state = {
@@ -16,31 +15,17 @@ class AddListing extends Component {
     toggleDialog = () => this.setState({ open: !this.state.open });
 
     handleTextChange = (e) => {
-        const newState = { ...this.state }
-        newState[e.target.id] = e.target.value
-        this.setState(newState)
-    }
+        const { id, value } = e.target;
+        this.setState({ [id]: value });
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const payload = { ...this.state }
-        payload.id = this.props.listingTotal + 1;
-        delete payload.open
-        console.log("THE LISTING", payload);
-        this.props.addListing(payload); 
-        this.setState({ open: false })
-    }
-
-    componentDidUpdate = (prevProps, prevState) => {
-        if (prevState.open !== this.state.open) {
-            this.setState({
-                name: '',
-                address: '',
-                hours: '',
-                description: ''
-            })
-        }
-    }
+        const { name, address, hours, description } = this.state;
+        const payload = { name, address, hours, description };
+        this.props.addListing(payload);
+        this.setState({ open: false, name: '', address: '', hours: '', description: '' });
+    };
 
     render() {
         return (
@@ -86,10 +71,8 @@ class AddListing extends Component {
                         <br />
                         
                         <div style={{ width: '50%', height: '400px' }}> 
-            <Map />
-        </div>
-    
-
+                            <Map />
+                        </div>
                     </DialogContent>
                 </Dialog>
             </Fragment>

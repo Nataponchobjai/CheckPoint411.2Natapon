@@ -9,7 +9,10 @@ import AddListing from '../containers/AddListing';
 const Navigation = () => {
   const navigate = useNavigate();
 
-
+  const checkAuth = () => {
+    const cookies = cookie.parse(document.cookie)
+    return cookies["loggedIn"] === "true"
+  }
   
 
   return (
@@ -23,16 +26,16 @@ const Navigation = () => {
           <li className="nav-list-item">
             <Link to="/">Listings</Link>
           </li>
-          
+          {checkAuth() === true && (
           <li className="nav-list-item">
             <AddListing /> 
           </li>
-          
+           )}  
           <li className="nav-list-item" onClick={() => {
      document.cookie = cookie.serialize("loggedIn", null, { maxAge: 0 });
       navigate("/login");
 }}>
-    Logout
+    login
 </li>
         </ul>
       </Toolbar>
