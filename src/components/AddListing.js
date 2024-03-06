@@ -71,7 +71,7 @@ class AddListing extends Component {
                         <br />
                         
                         <div style={{ width: '50%', height: '400px' }}> 
-                            <Map />
+                            <Map width="300vw" height= "200vw" listings={this.state.businessname}/>
                         </div>
                     </DialogContent>
                 </Dialog>

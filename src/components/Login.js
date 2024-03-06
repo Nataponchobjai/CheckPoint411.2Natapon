@@ -51,7 +51,7 @@ const Login = () => {
             variant="contained"
             style={{ backgroundColor: 'gray', color: 'white' }} 
           >
-            Logout
+            Login
           </Button>
         </form>
       </Container>

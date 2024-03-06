@@ -31,12 +31,18 @@ const Navigation = () => {
             <AddListing /> 
           </li>
            )}  
-          <li className="nav-list-item" onClick={() => {
-     document.cookie = cookie.serialize("loggedIn", null, { maxAge: 0 });
-      navigate("/login");
-}}>
-    login
-</li>
+           {checkAuth() ? (
+    <li className="nav-list-item" onClick={() => {
+        document.cookie = cookie.serialize("loggedIn", null, { maxAge: 0 });
+        navigate("/login");
+    }}>
+        Logout
+    </li>
+) : (
+    <li className="nav-list-item">
+        <Link to="/login">Login</Link>
+    </li>
+)}
         </ul>
       </Toolbar>
     </AppBar>
